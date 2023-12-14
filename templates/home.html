@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>xPassword</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        h1 {
+            color: #333;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+        li {
+            margin-bottom: 10px;
+        }
+        button {
+            padding: 8px 16px;
+            background-color: #3498db;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+        button:hover {
+            background-color: #2980b9;
+        }
+        a {
+            text-decoration: none;
+            color: #3498db;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    {% if session %}
+        <h1>Welcome {{ session.userinfo.name }}!</h1>
+        <p><a href="/logout">Logout</a></p>
+        <a href="/store_password"><button>Store Password</button></a>
+
+        <h1>Services Registered to {{ session.userinfo.name }}</h1>
+        <ul>
+            {% for service in services %}
+                <li>{{ service }}
+                    <a href="/verify_password/{{ service }}"><button>Show Password</button></a>
+                    <a href="/delete_password/{{ service }}"><button>Delete Password</button></a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <h1>Welcome Guest</h1>
+        <p><a href="/login">Login</a></p>
+    {% endif %}
+</body>
+</html>
